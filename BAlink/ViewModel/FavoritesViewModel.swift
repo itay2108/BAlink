@@ -6,8 +6,8 @@
 //
 
 import UIKit
-import Realm
 
+//favoritesViewModel has all of productsViewModels functions, it is just initiated with a different title and dataSource for the UICollectionview/
 class FavoritesViewModel: ProductsViewModel {
     
     convenience init() {

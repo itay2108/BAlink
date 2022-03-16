@@ -11,6 +11,10 @@ class ProductsViewController: UIViewController {
     
     let viewModel: ProductsViewModel
     
+    var isDisplayingFavorites: Bool {
+        return false
+    }
+    
     //MARK: UI Views
     
     lazy var productGallery: UICollectionView = {
@@ -44,15 +48,10 @@ class ProductsViewController: UIViewController {
         
         productGallery.delegate = self; productGallery.dataSource = self
         viewModel.delegate = self
-        
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        //reload favorite products and reload data to update which hearts are filled
+
+        //update viewmodel favorite list from db before displaying
         viewModel.favoriteProducts = RealmManager.shared.realmFavorites(getProductsOf: viewModel.username)
-        productGallery.reloadData()
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -161,6 +160,8 @@ extension ProductsViewController: UICollectionViewDelegate, UICollectionViewData
 
 extension ProductsViewController: ProductsViewModelDelegate {
     func productsViewModel(favoriteProductsDidUpdateTo products: [Product]) {
-        
+        if isDisplayingFavorites {
+            productGallery.reloadData()
+        }
     }
 }

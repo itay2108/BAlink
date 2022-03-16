@@ -27,6 +27,7 @@ class ProductsViewModel {
     var products: [Product]
     var favoriteProducts: [Product] = [] {
         didSet {
+            //update delegate and database of the new favorite products
             delegate?.productsViewModel(favoriteProductsDidUpdateTo: favoriteProducts)
             RealmManager.shared.realmFavorites(update: favoriteProducts, forUser: username)
         }
