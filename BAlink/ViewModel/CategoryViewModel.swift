@@ -24,10 +24,6 @@ class CategoryViewModel {
     
     let service = NetworkService()
     
-    public init(delegate categoryViewModelDelegate: CategoryViewModelDelegate? = nil) {
-        self.delegate = categoryViewModelDelegate
-    }
-    
     var delegate: CategoryViewModelDelegate?
     
     private let def = UserDefaults.standard
